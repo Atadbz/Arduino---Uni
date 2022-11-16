@@ -1,4 +1,4 @@
-int i = 1000;
+#int i = 1000;
 int count = 0;
 
 int pot;
@@ -9,6 +9,7 @@ void setup() {
   pinMode(12,OUTPUT);
   pinMode(A1,INPUT);
   Serial.begin(9600);
+
     
     
 
