@@ -6,14 +6,14 @@ An Arduino sketch for an electronic lock that opens with an RFID card, a keypad 
 
 ## Overview
 
-The main sketch combines an MFRC522 RFID reader, a 4x4 keypad, and a 16x2 I2C LCD into a lock controller. A card whose UID is stored in EEPROM, or the access code typed on the keypad, triggers an unlock; a separate pairing code saves the next scanned card's UID to EEPROM. The access code sent over the serial port, followed by one more character such as a newline, also unlocks; the code comments mark this path BT, likely for a Bluetooth module. Every unlock drives pin 6 low for five seconds before the LCD returns to `BLOCKED`.
+The main sketch combines an MFRC522 RFID reader, a 4x4 keypad, and a 16x2 I2C LCD into a lock controller. A card whose UID is stored in EEPROM, or the access code typed on the keypad, triggers an unlock. A separate pairing code saves the next scanned card's UID to EEPROM. The access code sent over the serial port, followed by one more character, also unlocks.
 
 ## Contents
 
 | Path | Description |
 | --- | --- |
 | `src/` | The lock sketch, `rfid_keypad_door_lock/rfid_keypad_door_lock.ino`: RFID card check and pairing stored in EEPROM, masked keypad entry, serial unlock, and LCD status messages. |
-| `experiments/` | `01_led_blink/01_led_blink.ino`, a short, unrelated sketch meant to blink LEDs on pins 2 and 8 with a delay that shrinks each cycle, then set pin 12 high. |
+| `experiments/` | `01_led_blink/01_led_blink.ino`, a short, unrelated sketch. It is meant to blink LEDs on pins 2 and 8 with a delay that shrinks each cycle, then set pin 12 high. A stray preprocessor line in `setup()` means it does not compile as written. |
 
 ## Usage
 
@@ -30,10 +30,12 @@ arduino-cli compile --fqbn "$FQBN" src/rfid_keypad_door_lock
 arduino-cli upload -p "$PORT" --fqbn "$FQBN" src/rfid_keypad_door_lock
 ```
 
-Wiring as defined in the code: RFID SS on pin 10 and RST on pin 9, LCD at I2C address `0x27`, keypad rows on pins 2 to 5 and columns on A0, 7, 8, and 9, pin 6 driven low for five seconds on every unlock (likely the lock or relay output). The serial link runs at 9600 baud. Pins A1 to A3 also switch during a card or keypad unlock; their purpose is not documented in the files.
+The code wires the RFID reader with SS on pin 10 and RST on pin 9. The LCD is at I2C address `0x27`. Keypad rows use pins 2 to 5, and columns use A0, 7, 8, and 9. Every unlock drives pin 6 low for five seconds, likely the lock or relay output, before the LCD returns to `BLOCKED`.
+
+The serial link runs at 9600 baud. The code comments call the serial unlock path BT, likely for a Bluetooth module. Pins A1 to A3 also switch during a card or keypad unlock, but their purpose is not documented in the files.
 
 ## Notes
 
-Kept for reference. The access and pairing codes are hardcoded demo values near the top of the sketch, and the serial unlock sequence repeats the access code separately in `loop()`, so all of them must be changed before any real use. Pin 9 is assigned to both the RFID reset line and a keypad column, and `experiments/01_led_blink/01_led_blink.ino` contains a stray preprocessor line in `setup()` and does not compile as written.
+The access and pairing codes are hardcoded demo values near the top of the sketch. The serial unlock sequence repeats the access code separately in `loop()`, so change all of them before any real use. Pin 9 is assigned to both the RFID reset line and a keypad column.
 
 <sub>This repository follows the [Repository Standard](https://github.com/Atadbz/Atadbz/blob/main/REPOSITORY_STANDARD.md).</sub>
