@@ -30,12 +30,12 @@ arduino-cli compile --fqbn "$FQBN" src/rfid_keypad_door_lock
 arduino-cli upload -p "$PORT" --fqbn "$FQBN" src/rfid_keypad_door_lock
 ```
 
-The code wires the RFID reader with SS on pin 10 and RST on pin 9. The LCD is at I2C address `0x27`. Keypad rows use pins 2 to 5, and columns use A0, 7, 8, and 9. Every unlock drives pin 6 low for five seconds before the LCD returns to `BLOCKED`.
+The code wires the RFID reader with SS on pin 10 and RST on pin 9, which the keypad also uses as its last column. The LCD is at I2C address `0x27`. Keypad rows use pins 2 to 5, and columns use A0, 7, 8, and 9. Every unlock drives pin 6 low for five seconds before the LCD returns to `BLOCKED`.
 
-The serial link runs at 9600 baud; the code comments label this unlock path BT, for a Bluetooth serial module. Pins A1 to A3 also switch during a card or keypad unlock. The original wiring of pin 6 and pins A1 to A3 was not documented.
+The serial link runs at 9600 baud, and the code comments label this unlock path BT. Pins A1 to A3 also switch during a card or keypad unlock. The original wiring of the serial device, pin 6, and pins A1 to A3 was not documented.
 
 ## Notes
 
-Archived project kept for reference. Before any real use, change the access and pairing codes hardcoded near the top of the sketch and the access code repeated in `loop()` for serial unlock. Pin 9 is assigned to both the RFID reset line and a keypad column. The RFID setup follows the MFRC522 library examples.
+Archived project kept for reference. Before any real use, change the access and pairing codes hardcoded near the top of the sketch and the access code repeated in `loop()` for serial unlock. The RFID setup follows the MFRC522 library examples.
 
 <sub>This repository follows the [Repository Standard](https://github.com/Atadbz/Atadbz/blob/main/REPOSITORY_STANDARD.md).</sub>
