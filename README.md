@@ -13,7 +13,7 @@ The main sketch combines an MFRC522 RFID reader, a 4x4 keypad, and a 16x2 I2C LC
 | Path | Description |
 | --- | --- |
 | `src/` | The lock sketch, `rfid_keypad_door_lock/rfid_keypad_door_lock.ino`: RFID card check and pairing stored in EEPROM, masked keypad entry, serial unlock, and LCD status messages. |
-| `experiments/` | `01_led_blink/01_led_blink.ino`, a short, unrelated sketch. It is meant to blink LEDs on pins 2 and 8 with a delay that shrinks each cycle, then set pin 12 high. A stray preprocessor line in `setup()` means it does not compile as written. |
+| `experiments/` | `01_led_blink/01_led_blink.ino`, an unrelated LED blink sketch with a shrinking delay. A stray preprocessor line in `setup()` means it does not compile as written. |
 
 ## Usage
 
@@ -30,12 +30,12 @@ arduino-cli compile --fqbn "$FQBN" src/rfid_keypad_door_lock
 arduino-cli upload -p "$PORT" --fqbn "$FQBN" src/rfid_keypad_door_lock
 ```
 
-The code wires the RFID reader with SS on pin 10 and RST on pin 9. The LCD is at I2C address `0x27`. Keypad rows use pins 2 to 5, and columns use A0, 7, 8, and 9. Every unlock drives pin 6 low for five seconds, likely the lock or relay output, before the LCD returns to `BLOCKED`.
+The code wires the RFID reader with SS on pin 10 and RST on pin 9. The LCD is at I2C address `0x27`. Keypad rows use pins 2 to 5, and columns use A0, 7, 8, and 9. Every unlock drives pin 6 low for five seconds before the LCD returns to `BLOCKED`.
 
-The serial link runs at 9600 baud. The code comments call the serial unlock path BT, likely for a Bluetooth module. Pins A1 to A3 also switch during a card or keypad unlock, but their purpose is not documented in the files.
+The serial link runs at 9600 baud; the code comments label this unlock path BT, for a Bluetooth serial module. Pins A1 to A3 also switch during a card or keypad unlock. The original wiring of pin 6 and pins A1 to A3 was not documented.
 
 ## Notes
 
-Archived project kept for reference. Before any real use, change the access and pairing codes hardcoded near the top of the sketch and the access code repeated in `loop()` for serial unlock. Pin 9 is assigned to both the RFID reset line and a keypad column.
+Archived project kept for reference. Before any real use, change the access and pairing codes hardcoded near the top of the sketch and the access code repeated in `loop()` for serial unlock. Pin 9 is assigned to both the RFID reset line and a keypad column. The RFID setup follows the MFRC522 library examples.
 
 <sub>This repository follows the [Repository Standard](https://github.com/Atadbz/Atadbz/blob/main/REPOSITORY_STANDARD.md).</sub>
