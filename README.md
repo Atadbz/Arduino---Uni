@@ -36,6 +36,6 @@ The serial link runs at 9600 baud. The code comments call the serial unlock path
 
 ## Notes
 
-The access and pairing codes are hardcoded near the top of the sketch. The serial unlock sequence repeats the access code separately in `loop()`, so change all of them before any real use. Pin 9 is assigned to both the RFID reset line and a keypad column.
+Archived project kept for reference. Before any real use, change the access and pairing codes hardcoded near the top of the sketch and the access code repeated in `loop()` for serial unlock. Pin 9 is assigned to both the RFID reset line and a keypad column.
 
 <sub>This repository follows the [Repository Standard](https://github.com/Atadbz/Atadbz/blob/main/REPOSITORY_STANDARD.md).</sub>
