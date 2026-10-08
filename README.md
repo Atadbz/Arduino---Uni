@@ -12,9 +12,8 @@ The main sketch combines an MFRC522 RFID reader, a 4x4 keypad, and a 16x2 I2C LC
 
 | Path | Description |
 | --- | --- |
-| [`README.md`](README.md) | This overview. |
-| [`src/`](src) | The lock sketch, `rfid_keypad_door_lock/rfid_keypad_door_lock.ino`: RFID card check and pairing stored in EEPROM, masked keypad entry, serial unlock, and LCD status messages. |
-| [`experiments/`](experiments) | `01_led_blink/01_led_blink.ino`, a short, unrelated sketch meant to blink LEDs on pins 2 and 8 with a delay that shrinks each cycle, then set pin 12 high. |
+| `src/` | The lock sketch, `rfid_keypad_door_lock/rfid_keypad_door_lock.ino`: RFID card check and pairing stored in EEPROM, masked keypad entry, serial unlock, and LCD status messages. |
+| `experiments/` | `01_led_blink/01_led_blink.ino`, a short, unrelated sketch meant to blink LEDs on pins 2 and 8 with a delay that shrinks each cycle, then set pin 12 high. |
 
 ## Usage
 
